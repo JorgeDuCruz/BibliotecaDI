@@ -5,7 +5,25 @@ from gi.repository import Gtk
 
 
 class DialogoAutor(Gtk.Dialog):
+    """
+    Ventana de diálogo modal para la creación y edición de autores.
+
+    Esta clase genera un formulario con campos para el nombre, nacionalidad
+    y biografía de un autor.
+    """
+
     def __init__(self, parent, titulo, nombre="", nac="", bio=""):
+        """
+        Inicializa el diálogo de autor.
+
+        :param parent: Ventana que actúa como padre del diálogo.
+        :type parent: Gtk.Window
+        :param titulo: Título de la ventana del diálogo.
+        :type titulo: str
+        :param nombre: Nombre predefinido (para edición), por defecto "".
+        :param nac: Nacionalidad predefinida (para edición), por defecto "".
+        :param bio: Biografía predefinida (para edición), por defecto "".
+        """
         super().__init__(title=titulo, transient_for=parent, flags=0)
         self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK)
         box = self.get_content_area()
@@ -23,12 +41,33 @@ class DialogoAutor(Gtk.Dialog):
         self.show_all()
 
     def get_datos(self):
+        """
+        Recupera la información introducida en los campos del formulario.
+
+        :return: Tupla con el nombre, nacionalidad y contenido del búfer de texto.
+        :rtype: tuple
+        """
         b = self.tv.get_buffer()
         return (self.en.get_text(), self.ena.get_text(), b.get_text(b.get_start_iter(), b.get_end_iter(), True))
 
 
 class VentanaAutores(Gtk.Window):
+    """
+    Ventana encargada de la gestión integral de autores.
+
+    Permite listar autores mediante un TreeView, añadirlos, editarlos
+    y eliminarlos con confirmación previa.
+    """
+
     def __init__(self, db, main_win):
+        """
+        Inicializa la ventana de gestión de autores.
+
+        :param db: Instancia de conexión a la base de datos.
+        :type db: ConexionBD
+        :param main_win: Referencia a la ventana principal para la navegación.
+        :type main_win: VentanaSeleccion
+        """
         super().__init__(title="Gestión de Autores")
         self.db, self.main_win = db, main_win
         self.set_default_size(500, 400)
@@ -52,11 +91,10 @@ class VentanaAutores(Gtk.Window):
         self.btn_del = Gtk.Button(label="Eliminar")
         btn_v = Gtk.Button(label="Volver")
 
-        # 1. Desactivar botones inicialmente
+        # Configuración inicial de sensibilidad
         self.btn_edit.set_sensitive(False)
         self.btn_del.set_sensitive(False)
 
-        # 2. Conectar la señal de selección
         seleccion = self.tree.get_selection()
         seleccion.connect("changed", self.on_seleccion_cambiada)
 
@@ -72,58 +110,72 @@ class VentanaAutores(Gtk.Window):
         self.hide()
 
     def actualizar_listado(self):
+        """
+        Consulta la base de datos y refresca el contenido del TreeView.
+        """
         self.modelo.clear()
         for f in self.db.consultaSenParametros("SELECT * FROM autores"):
             self.modelo.append(list(f))
 
     def on_add_clicked(self, w):
+        """
+        Gestiona la lógica para añadir un nuevo autor.
+
+        Mantiene el diálogo abierto mediante un bucle hasta que la validación sea
+        correcta o el usuario cancele la operación.
+        """
         d = DialogoAutor(self, "Nuevo Autor")
 
-        # Bucle para mantener el diálogo abierto hasta que los datos sean correctos o cancele
         while True:
             response = d.run()
             if response == Gtk.ResponseType.OK:
                 datos = d.get_datos()
-                if datos[0].strip():  # Si el nombre es válido
+                if datos[0].strip():
                     self.db.engadeRexistro("INSERT INTO autores(nombre, nacionalidad, biografia) VALUES(?,?,?)", *datos)
                     self.actualizar_listado()
-                    break  # Salimos del bucle y cerramos
+                    break
                 else:
                     self.mostrar_error("El nombre del autor es obligatorio.")
-                    # Al no haber 'break', el bucle vuelve a d.run() y la ventana sigue ahí
             else:
-                break  # El usuario pulsó cancelar o cerró la ventana
+                break
 
         d.destroy()
 
     def on_edit_clicked(self, w):
+        """
+        Gestiona la edición de un autor seleccionado.
+
+        Valida que los campos obligatorios no se dejen vacíos durante la edición.
+        """
         mod, it = self.tree.get_selection().get_selected()
         if it:
-            # Creamos el diálogo con los datos actuales
             d = DialogoAutor(self, "Editar Autor", mod[it][1], mod[it][2], mod[it][3])
 
             while True:
                 response = d.run()
                 if response == Gtk.ResponseType.OK:
                     datos_nuevos = d.get_datos()
-                    # VALIDACIÓN: Nombre no vacío
                     if datos_nuevos[0].strip():
                         self.db.actualizaRexistro(
                             "UPDATE autores SET nombre=?, nacionalidad=?, biografia=? WHERE id_autor=?",
                             *datos_nuevos, mod[it][0]
                         )
                         self.actualizar_listado()
-                        break  # Datos correctos, cerramos
+                        break
                     else:
                         self.mostrar_error("El nombre no puede quedar vacío al editar.")
                 else:
-                    break  # Cancelar
+                    break
             d.destroy()
 
     def on_delete_clicked(self, w):
+        """
+        Gestiona la eliminación de un autor tras confirmación del usuario.
+
+        Muestra un diálogo de advertencia informando sobre el borrado en cascada.
+        """
         mod, it = self.tree.get_selection().get_selected()
         if it:
-            # CONFIRMACIÓN DE BORRADO
             confirm = Gtk.MessageDialog(transient_for=self, flags=0, message_type=Gtk.MessageType.QUESTION,
                                         buttons=Gtk.ButtonsType.YES_NO, text="¿Seguro que desea eliminar este autor?")
             confirm.format_secondary_text("Se eliminarán también todos los libros asociados a este autor.")
@@ -135,7 +187,12 @@ class VentanaAutores(Gtk.Window):
                 self.actualizar_listado()
 
     def mostrar_error(self, mensaje):
-        """Muestra un diálogo de aviso al usuario."""
+        """
+        Muestra un diálogo de error con un mensaje personalizado.
+
+        :param mensaje: Texto que se mostrará en el cuerpo del error.
+        :type mensaje: str
+        """
         dialogo = Gtk.MessageDialog(transient_for=self, flags=0, message_type=Gtk.MessageType.ERROR,
                                     buttons=Gtk.ButtonsType.OK, text="Error en los datos")
         dialogo.format_secondary_text(mensaje)
@@ -143,15 +200,27 @@ class VentanaAutores(Gtk.Window):
         dialogo.destroy()
 
     def on_delete_event(self, w, e):
+        """
+        Intervención del evento de cierre de ventana (botón X).
+
+        Impide la destrucción del objeto y vuelve al menú principal.
+        """
         self.on_volver_clicked()
         return True
 
     def on_volver_clicked(self, w=None):
+        """
+        Oculta la ventana actual y muestra la ventana principal.
+        """
         self.hide()
         self.main_win.show()
 
     def on_seleccion_cambiada(self, seleccion):
-        """Habilita o deshabilita botones según si hay algo seleccionado."""
+        """
+        Controlador de la señal 'changed' de la selección del TreeView.
+
+        Habilita o deshabilita los botones Editar y Eliminar según la selección.
+        """
         modelo, iterador = seleccion.get_selected()
         hay_seleccion = iterador is not None
         self.btn_edit.set_sensitive(hay_seleccion)
