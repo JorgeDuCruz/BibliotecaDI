@@ -1,16 +1,20 @@
 import sqlite3 as dbapi
 
+
 class ConexionBD:
     """
-    Clase para gestionar la conexión y operaciones CRUD en una base de datos SQLite
-    orientada a una biblioteca de libros y sus autores.
+    Clase para gestionar la conexión y operaciones CRUD en una base de datos SQLite.
+
+    Esta clase está orientada a la gestión de una biblioteca, manejando las tablas
+    de libros y sus autores, asegurando la integridad referencial mediante claves foráneas.
     """
 
     def __init__(self, rutaBd):
         """
         Inicializa las propiedades de la conexión.
 
-        :param rutaBd: Ruta del archivo de la base de datos (ej: 'biblioteca.db').
+        :param rutaBd: Ruta física o nombre del archivo de la base de datos (ej: 'biblioteca.db').
+        :type rutaBd: str
         """
         self.rutaBd = rutaBd
         self.conexion = None
@@ -18,8 +22,10 @@ class ConexionBD:
 
     def conectaBD(self):
         """
-        Crea la conexión con la base de datos SQLite y habilita el soporte
-        para claves foráneas.
+        Crea la conexión con la base de datos SQLite y habilita el soporte para claves foráneas.
+
+        Utiliza el comando PRAGMA para asegurar que las relaciones ON DELETE CASCADE
+        funcionen correctamente en el motor SQLite.
         """
         try:
             if self.conexion is None:
@@ -33,6 +39,8 @@ class ConexionBD:
     def creaCursor(self):
         """
         Crea el objeto cursor necesario para ejecutar sentencias SQL.
+
+        Requiere que la conexión haya sido establecida previamente mediante conectaBD().
         """
         try:
             if self.conexion and self.cursor is None:
@@ -44,7 +52,9 @@ class ConexionBD:
     def crearTablas(self):
         """
         Crea las tablas 'autores' y 'libros' estableciendo una relación 1:N.
+
         Un autor puede tener muchos libros, pero un libro pertenece a un solo autor.
+        La tabla libros incluye restricciones de validación para la puntuación.
         """
         # Tabla de Autores
         sql_autores = """
@@ -78,8 +88,10 @@ class ConexionBD:
         """
         Ejecuta una consulta SQL de selección sin parámetros.
 
-        :param consultaSQL: Sentencia SQL a ejecutar.
-        :return: Lista de tuplas con los registros.
+        :param consultaSQL: Sentencia SQL (SELECT) a ejecutar.
+        :type consultaSQL: str
+        :return: Lista de tuplas con los registros resultantes.
+        :rtype: list
         """
         try:
             self.cursor.execute(consultaSQL)
@@ -90,11 +102,13 @@ class ConexionBD:
 
     def consultaConParametros(self, consultaSQL, *parametros):
         """
-        Ejecuta una consulta SQL de selección utilizando parámetros.
+        Ejecuta una consulta SQL de selección utilizando parámetros de seguridad.
 
-        :param consultaSQL: Sentencia SQL con marcadores '?'.
-        :param parametros: Valores para la consulta.
-        :return: Lista de tuplas con los resultados.
+        :param consultaSQL: Sentencia SQL con marcadores de posición '?'.
+        :type consultaSQL: str
+        :param parametros: Valores para filtrar la consulta.
+        :return: Lista de tuplas con los resultados filtrados.
+        :rtype: list
         """
         try:
             self.cursor.execute(consultaSQL, parametros)
@@ -108,7 +122,8 @@ class ConexionBD:
         Inserta un nuevo registro (Libro o Autor) en la base de datos.
 
         :param insertSQL: Sentencia INSERT con marcadores '?'.
-        :param parametros: Datos a insertar.
+        :type insertSQL: str
+        :param parametros: Datos del registro a insertar.
         """
         try:
             self.cursor.execute(insertSQL, parametros)
@@ -122,7 +137,8 @@ class ConexionBD:
         Actualiza un registro existente mediante su ID.
 
         :param updateSQL: Sentencia UPDATE con marcadores '?'.
-        :param parametros: Nuevos valores incluyendo el ID al final.
+        :type updateSQL: str
+        :param parametros: Nuevos valores incluyendo el ID al final para la cláusula WHERE.
         """
         try:
             self.cursor.execute(updateSQL, parametros)
@@ -133,11 +149,14 @@ class ConexionBD:
 
     def borraRexistro(self, borraSQL, *parametros):
         """
-        Elimina un registro. Si se borra un autor, se borrarán sus libros
-        en cascada si así se configuró en la tabla.
+        Elimina un registro de la base de datos.
+
+        Si se borra un autor, se borrarán sus libros en cascada automáticamente
+        gracias a la configuración de la clave foránea.
 
         :param borraSQL: Sentencia DELETE con marcador para el ID.
-        :param parametros: ID del registro.
+        :type borraSQL: str
+        :param parametros: ID del registro a eliminar.
         """
         try:
             self.cursor.execute(borraSQL, parametros)
@@ -148,7 +167,7 @@ class ConexionBD:
 
     def pechaBD(self):
         """
-        Cierra la conexión y el cursor.
+        Realiza el cierre seguro del cursor y de la conexión con la base de datos.
         """
         if self.cursor:
             self.cursor.close()
