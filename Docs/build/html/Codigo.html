@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codigo &mdash; documentación de Biblioteca DI - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8e0ebba5"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/translations.js?v=efdbd0b9"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="prev" title="Manual de Usuario" href="Manual.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Biblioteca DI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Guía de Referencia Técnica:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Manual.html">Manual de Usuario</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Codigo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-Codigo.conexionBD">conexionBD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD"><code class="docutils literal notranslate"><span class="pre">ConexionBD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.actualizaRexistro"><code class="docutils literal notranslate"><span class="pre">ConexionBD.actualizaRexistro()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.borraRexistro"><code class="docutils literal notranslate"><span class="pre">ConexionBD.borraRexistro()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.conectaBD"><code class="docutils literal notranslate"><span class="pre">ConexionBD.conectaBD()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.consultaConParametros"><code class="docutils literal notranslate"><span class="pre">ConexionBD.consultaConParametros()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.consultaSenParametros"><code class="docutils literal notranslate"><span class="pre">ConexionBD.consultaSenParametros()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.creaCursor"><code class="docutils literal notranslate"><span class="pre">ConexionBD.creaCursor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.crearTablas"><code class="docutils literal notranslate"><span class="pre">ConexionBD.crearTablas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.engadeRexistro"><code class="docutils literal notranslate"><span class="pre">ConexionBD.engadeRexistro()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.conexionBD.ConexionBD.pechaBD"><code class="docutils literal notranslate"><span class="pre">ConexionBD.pechaBD()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Codigo.main">main</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.main.AplicacionBiblioteca"><code class="docutils literal notranslate"><span class="pre">AplicacionBiblioteca</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.main.AplicacionBiblioteca.ejecutar"><code class="docutils literal notranslate"><span class="pre">AplicacionBiblioteca.ejecutar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Codigo.ventana_autores">ventana_autores</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.ventana_autores.DialogoAutor"><code class="docutils literal notranslate"><span class="pre">DialogoAutor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.DialogoAutor.get_datos"><code class="docutils literal notranslate"><span class="pre">DialogoAutor.get_datos()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores"><code class="docutils literal notranslate"><span class="pre">VentanaAutores</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.actualizar_listado"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.actualizar_listado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.mostrar_error"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.mostrar_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.on_add_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.on_add_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.on_delete_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.on_delete_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.on_delete_event"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.on_delete_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.on_edit_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.on_edit_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.on_seleccion_cambiada"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.on_seleccion_cambiada()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_autores.VentanaAutores.on_volver_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaAutores.on_volver_clicked()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Codigo.ventana_libros">ventana_libros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.ventana_libros.DialogoLibro"><code class="docutils literal notranslate"><span class="pre">DialogoLibro</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.DialogoLibro.get_datos"><code class="docutils literal notranslate"><span class="pre">DialogoLibro.get_datos()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros"><code class="docutils literal notranslate"><span class="pre">VentanaLibros</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.actualizar_listado"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.actualizar_listado()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.filtro_func"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.filtro_func()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.mostrar_error"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.mostrar_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_add_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_add_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_delete_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_delete_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_delete_event"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_delete_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_edit_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_edit_clicked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_filtro_changed"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_filtro_changed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_seleccion_cambiada"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_seleccion_cambiada()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_libros.VentanaLibros.on_volver_clicked"><code class="docutils literal notranslate"><span class="pre">VentanaLibros.on_volver_clicked()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Codigo.ventana_seleccion">ventana_seleccion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Codigo.ventana_seleccion.VentanaSeleccion"><code class="docutils literal notranslate"><span class="pre">VentanaSeleccion</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Codigo.ventana_seleccion.VentanaSeleccion.abrir"><code class="docutils literal notranslate"><span class="pre">VentanaSeleccion.abrir()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Biblioteca DI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Codigo</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Codigo.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="codigo">
+<h1>Codigo<a class="headerlink" href="#codigo" title="Enlace permanente a este encabezado"></a></h1>
+<section id="module-Codigo.conexionBD">
+<span id="conexionbd"></span><h2>conexionBD<a class="headerlink" href="#module-Codigo.conexionBD" title="Enlace permanente a este encabezado"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.conexionBD.</span></span><span class="sig-name descname"><span class="pre">ConexionBD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rutaBd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Clase para gestionar la conexión y operaciones CRUD en una base de datos SQLite.</p>
+<p>Esta clase está orientada a la gestión de una biblioteca, manejando las tablas
+de libros y sus autores, asegurando la integridad referencial mediante claves foráneas.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.actualizaRexistro">
+<span class="sig-name descname"><span class="pre">actualizaRexistro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">updateSQL</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parametros</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.actualizaRexistro"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.actualizaRexistro" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Actualiza un registro existente mediante su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>updateSQL</strong> (<em>str</em>) – Sentencia UPDATE con marcadores “?”.</p></li>
+<li><p><strong>parametros</strong> – Nuevos valores incluyendo el ID al final para la cláusula WHERE.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.borraRexistro">
+<span class="sig-name descname"><span class="pre">borraRexistro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">borraSQL</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parametros</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.borraRexistro"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.borraRexistro" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Elimina un registro de la base de datos.</p>
+<p>Si se borra un autor, se borrarán sus libros en cascada automáticamente
+gracias a la configuración de la clave foránea.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>borraSQL</strong> (<em>str</em>) – Sentencia DELETE con marcador para el ID.</p></li>
+<li><p><strong>parametros</strong> – ID del registro a eliminar.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.conectaBD">
+<span class="sig-name descname"><span class="pre">conectaBD</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.conectaBD"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.conectaBD" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Crea la conexión con la base de datos SQLite y habilita el soporte para claves foráneas.</p>
+<p>Utiliza el comando PRAGMA para asegurar que las relaciones ON DELETE CASCADE
+funcionen correctamente en el motor SQLite.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.consultaConParametros">
+<span class="sig-name descname"><span class="pre">consultaConParametros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">consultaSQL</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parametros</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.consultaConParametros"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.consultaConParametros" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Ejecuta una consulta SQL de selección utilizando parámetros de seguridad.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>consultaSQL</strong> (<em>str</em>) – Sentencia SQL con marcadores de posición “?”.</p></li>
+<li><p><strong>parametros</strong> – Valores para filtrar la consulta.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de tuplas con los resultados filtrados.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.consultaSenParametros">
+<span class="sig-name descname"><span class="pre">consultaSenParametros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">consultaSQL</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.consultaSenParametros"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.consultaSenParametros" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Ejecuta una consulta SQL de selección sin parámetros.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>consultaSQL</strong> (<em>str</em>) – Sentencia SQL (SELECT) a ejecutar.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de tuplas con los registros resultantes.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.creaCursor">
+<span class="sig-name descname"><span class="pre">creaCursor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.creaCursor"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.creaCursor" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Crea el objeto cursor necesario para ejecutar sentencias SQL.</p>
+<p>Requiere que la conexión haya sido establecida previamente mediante conectaBD().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.crearTablas">
+<span class="sig-name descname"><span class="pre">crearTablas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.crearTablas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.crearTablas" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Crea las tablas “autores” y “libros” estableciendo una relación 1:N.</p>
+<p>Un autor puede tener muchos libros, pero un libro pertenece a un solo autor.
+La tabla libros incluye restricciones de validación para la puntuación.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.engadeRexistro">
+<span class="sig-name descname"><span class="pre">engadeRexistro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insertSQL</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parametros</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.engadeRexistro"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.engadeRexistro" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Inserta un nuevo registro (Libro o Autor) en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>insertSQL</strong> (<em>str</em>) – Sentencia INSERT con marcadores “?”.</p></li>
+<li><p><strong>parametros</strong> – Datos del registro a insertar.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.conexionBD.ConexionBD.pechaBD">
+<span class="sig-name descname"><span class="pre">pechaBD</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/conexionBD.html#ConexionBD.pechaBD"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.conexionBD.ConexionBD.pechaBD" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Realiza el cierre seguro del cursor y de la conexión con la base de datos.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Codigo.main">
+<span id="main"></span><h2>main<a class="headerlink" href="#module-Codigo.main" title="Enlace permanente a este encabezado"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.main.AplicacionBiblioteca">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.main.</span></span><span class="sig-name descname"><span class="pre">AplicacionBiblioteca</span></span><a class="reference internal" href="_modules/Codigo/main.html#AplicacionBiblioteca"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.main.AplicacionBiblioteca" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Clase principal que orquestra el inicio de la aplicación de biblioteca.</p>
+<p>Esta clase se encarga de establecer la conexión inicial con la base de datos,
+asegurar que la estructura de tablas exista y lanzar la primera ventana
+de la interfaz de usuario (VentanaSeleccion).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.main.AplicacionBiblioteca.ejecutar">
+<span class="sig-name descname"><span class="pre">ejecutar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/main.html#AplicacionBiblioteca.ejecutar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.main.AplicacionBiblioteca.ejecutar" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Inicia el bucle de eventos principal de GTK.</p>
+<p>Este método mantiene la aplicación en ejecución y a la espera de
+interacciones por parte del usuario hasta que se cierre la ventana principal.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Codigo.main.main">
+<span class="sig-prename descclassname"><span class="pre">Codigo.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/main.html#main"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.main.main" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Punto de entrada para el comando de terminal.</p>
+</dd></dl>
+
+</section>
+<section id="module-Codigo.ventana_autores">
+<span id="ventana-autores"></span><h2>ventana_autores<a class="headerlink" href="#module-Codigo.ventana_autores" title="Enlace permanente a este encabezado"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.DialogoAutor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.ventana_autores.</span></span><span class="sig-name descname"><span class="pre">DialogoAutor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#DialogoAutor"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.DialogoAutor" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dialog</span></code></p>
+<p>Ventana de diálogo modal para la creación y edición de autores.</p>
+<p>Esta clase genera un formulario con campos para el nombre, nacionalidad
+y biografía de un autor.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.DialogoAutor.get_datos">
+<span class="sig-name descname"><span class="pre">get_datos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#DialogoAutor.get_datos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.DialogoAutor.get_datos" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Recupera la información introducida en los campos del formulario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tupla con el nombre, nacionalidad y contenido del búfer de texto.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.ventana_autores.</span></span><span class="sig-name descname"><span class="pre">VentanaAutores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></p>
+<p>Ventana encargada de la gestión integral de autores.</p>
+<p>Permite listar autores mediante un TreeView, añadirlos, editarlos
+y eliminarlos con confirmación previa.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.actualizar_listado">
+<span class="sig-name descname"><span class="pre">actualizar_listado</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.actualizar_listado"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.actualizar_listado" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Consulta la base de datos y refresca el contenido del TreeView.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.mostrar_error">
+<span class="sig-name descname"><span class="pre">mostrar_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensaje</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.mostrar_error"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.mostrar_error" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Muestra un diálogo de error con un mensaje personalizado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mensaje</strong> (<em>str</em>) – Texto que se mostrará en el cuerpo del error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.on_add_clicked">
+<span class="sig-name descname"><span class="pre">on_add_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.on_add_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.on_add_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Gestiona la lógica para añadir un nuevo autor.</p>
+<p>Mantiene el diálogo abierto mediante un bucle hasta que la validación sea
+correcta o el usuario cancele la operación.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.on_delete_clicked">
+<span class="sig-name descname"><span class="pre">on_delete_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.on_delete_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.on_delete_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Gestiona la eliminación de un autor tras confirmación del usuario.</p>
+<p>Muestra un diálogo de advertencia informando sobre el borrado en cascada.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.on_delete_event">
+<span class="sig-name descname"><span class="pre">on_delete_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.on_delete_event"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.on_delete_event" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Intervención del evento de cierre de ventana (botón X).</p>
+<p>Impide la destrucción del objeto y vuelve al menú principal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.on_edit_clicked">
+<span class="sig-name descname"><span class="pre">on_edit_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.on_edit_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.on_edit_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Gestiona la edición de un autor seleccionado.</p>
+<p>Valida que los campos obligatorios no se dejen vacíos durante la edición.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.on_seleccion_cambiada">
+<span class="sig-name descname"><span class="pre">on_seleccion_cambiada</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seleccion</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.on_seleccion_cambiada"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.on_seleccion_cambiada" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Controlador de la señal “changed” de la selección del TreeView.</p>
+<p>Habilita o deshabilita los botones Editar y Eliminar según la selección.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_autores.VentanaAutores.on_volver_clicked">
+<span class="sig-name descname"><span class="pre">on_volver_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_autores.html#VentanaAutores.on_volver_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_autores.VentanaAutores.on_volver_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Oculta la ventana actual y muestra la ventana principal.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Codigo.ventana_libros">
+<span id="ventana-libros"></span><h2>ventana_libros<a class="headerlink" href="#module-Codigo.ventana_libros" title="Enlace permanente a este encabezado"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.DialogoLibro">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.ventana_libros.</span></span><span class="sig-name descname"><span class="pre">DialogoLibro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#DialogoLibro"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.DialogoLibro" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dialog</span></code></p>
+<p>Ventana modal para la entrada de datos de libros.</p>
+<p>Proporciona una interfaz para capturar el título, el autor (vía ComboBox),
+la valoración (vía Gtk.Scale) y el estado de lectura del libro.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.DialogoLibro.get_datos">
+<span class="sig-name descname"><span class="pre">get_datos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#DialogoLibro.get_datos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.DialogoLibro.get_datos" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Extrae y procesa los datos de los widgets del diálogo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tupla con (título, id_autor, valoración, estado_leído).</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.ventana_libros.</span></span><span class="sig-name descname"><span class="pre">VentanaLibros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></p>
+<p>Ventana principal para la gestión y visualización del catálogo de libros.</p>
+<p>Incluye un listado interactivo y herramientas para la manipulación de registros
+con validación de datos en tiempo real.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.actualizar_listado">
+<span class="sig-name descname"><span class="pre">actualizar_listado</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.actualizar_listado"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.actualizar_listado" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Sincroniza el modelo real con la DB (ahora usamos modelo_real).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.filtro_func">
+<span class="sig-name descname"><span class="pre">filtro_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.filtro_func"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.filtro_func" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Determina si una fila debe ser visible basada en el ComboBox.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.mostrar_error">
+<span class="sig-name descname"><span class="pre">mostrar_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mensaje</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.mostrar_error"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.mostrar_error" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Lanza un cuadro de diálogo de advertencia.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_add_clicked">
+<span class="sig-name descname"><span class="pre">on_add_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_add_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_add_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Maneja la creación de un nuevo libro con validación de campos obligatorios.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_delete_clicked">
+<span class="sig-name descname"><span class="pre">on_delete_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_delete_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_delete_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Maneja el borrado de un libro tras confirmación.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_delete_event">
+<span class="sig-name descname"><span class="pre">on_delete_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_delete_event"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_delete_event" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Gestiona el evento de cierre de la ventana.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_edit_clicked">
+<span class="sig-name descname"><span class="pre">on_edit_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_edit_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_edit_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Maneja la edición de un libro existente, manteniendo el diálogo abierto ante errores.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_filtro_changed">
+<span class="sig-name descname"><span class="pre">on_filtro_changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">combo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_filtro_changed"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_filtro_changed" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Refresca la vista del filtro cuando cambia el ComboBox.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_seleccion_cambiada">
+<span class="sig-name descname"><span class="pre">on_seleccion_cambiada</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seleccion</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_seleccion_cambiada"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_seleccion_cambiada" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Actualiza la sensibilidad de los botones según la selección actual del TreeView.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_libros.VentanaLibros.on_volver_clicked">
+<span class="sig-name descname"><span class="pre">on_volver_clicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_libros.html#VentanaLibros.on_volver_clicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_libros.VentanaLibros.on_volver_clicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Oculta la ventana de libros y regresa al menú principal.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Codigo.ventana_seleccion">
+<span id="ventana-seleccion"></span><h2>ventana_seleccion<a class="headerlink" href="#module-Codigo.ventana_seleccion" title="Enlace permanente a este encabezado"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Codigo.ventana_seleccion.VentanaSeleccion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Codigo.ventana_seleccion.</span></span><span class="sig-name descname"><span class="pre">VentanaSeleccion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_seleccion.html#VentanaSeleccion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_seleccion.VentanaSeleccion" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></p>
+<p>Ventana de menú principal que sirve como orquestador de la aplicación.</p>
+<p>Esta clase permite al usuario navegar entre la gestión de autores y la
+gestión de libros. Utiliza un sistema de ventanas persistentes para
+evitar la recreación constante de objetos y mejorar el rendimiento.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Codigo.ventana_seleccion.VentanaSeleccion.abrir">
+<span class="sig-name descname"><span class="pre">abrir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ventana</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Codigo/ventana_seleccion.html#VentanaSeleccion.abrir"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#Codigo.ventana_seleccion.VentanaSeleccion.abrir" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Gestiona la transición entre el menú principal y las ventanas secundarias.</p>
+<p>Oculta la ventana de selección, refresca los datos de la base de datos
+en la ventana destino y la presenta al usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ventana</strong> (<em>Gtk.Window</em>) – Instancia de la ventana que se desea mostrar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="Manual.html" class="btn btn-neutral float-left" title="Manual de Usuario" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2026, Jorge Durán Cruz.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

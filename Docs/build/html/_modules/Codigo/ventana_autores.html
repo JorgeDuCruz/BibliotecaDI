@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codigo.ventana_autores &mdash; documentación de Biblioteca DI - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=8e0ebba5"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Biblioteca DI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Guía de Referencia Técnica:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Manual.html">Manual de Usuario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Codigo.html">Codigo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Biblioteca DI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">Codigo.ventana_autores</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para Codigo.ventana_autores</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gi</span>
+
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gi.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gtk</span>
+
+
+<div class="viewcode-block" id="DialogoAutor"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.DialogoAutor">[documentos]</a><span class="k">class</span><span class="w"> </span><span class="nc">DialogoAutor</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Dialog</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ventana de diálogo modal para la creación y edición de autores.</span>
+
+<span class="sd">    Esta clase genera un formulario con campos para el nombre, nacionalidad</span>
+<span class="sd">    y biografía de un autor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">titulo</span><span class="p">,</span> <span class="n">nombre</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">nac</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">bio</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa el diálogo de autor.</span>
+
+<span class="sd">        :param parent: Ventana que actúa como padre del diálogo.</span>
+<span class="sd">        :type parent: Gtk.Window</span>
+<span class="sd">        :param titulo: Título de la ventana del diálogo.</span>
+<span class="sd">        :type titulo: str</span>
+<span class="sd">        :param nombre: Nombre predefinido (para edición), por defecto &quot;&quot;.</span>
+<span class="sd">        :param nac: Nacionalidad predefinida (para edición), por defecto &quot;&quot;.</span>
+<span class="sd">        :param bio: Biografía predefinida (para edición), por defecto &quot;&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">titulo</span><span class="p">,</span> <span class="n">transient_for</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_buttons</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_CANCEL</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">CANCEL</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_OK</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">)</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_content_area</span><span class="p">()</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">set_spacing</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">set_border_width</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">en</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">nombre</span><span class="p">,</span> <span class="n">placeholder_text</span><span class="o">=</span><span class="s2">&quot;Nombre&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ena</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">nac</span><span class="p">,</span> <span class="n">placeholder_text</span><span class="o">=</span><span class="s2">&quot;Nacionalidad&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tv</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TextView</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">get_buffer</span><span class="p">()</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">bio</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Nombre:&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">en</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Nacionalidad:&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ena</span><span class="p">,</span>
+                  <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Biografía:&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="p">]:</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DialogoAutor.get_datos"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.DialogoAutor.get_datos">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_datos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recupera la información introducida en los campos del formulario.</span>
+
+<span class="sd">        :return: Tupla con el nombre, nacionalidad y contenido del búfer de texto.</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">.</span><span class="n">get_buffer</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">en</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ena</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">get_start_iter</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">get_end_iter</span><span class="p">(),</span> <span class="kc">True</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="VentanaAutores"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores">[documentos]</a><span class="k">class</span><span class="w"> </span><span class="nc">VentanaAutores</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ventana encargada de la gestión integral de autores.</span>
+
+<span class="sd">    Permite listar autores mediante un TreeView, añadirlos, editarlos</span>
+<span class="sd">    y eliminarlos con confirmación previa.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">main_win</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa la ventana de gestión de autores.</span>
+
+<span class="sd">        :param db: Instancia de conexión a la base de datos.</span>
+<span class="sd">        :type db: ConexionBD</span>
+<span class="sd">        :param main_win: Referencia a la ventana principal para la navegación.</span>
+<span class="sd">        :type main_win: VentanaSeleccion</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Gestión de Autores&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_win</span> <span class="o">=</span> <span class="n">db</span><span class="p">,</span> <span class="n">main_win</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;delete-event&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_delete_event</span><span class="p">)</span>
+
+        <span class="n">vbox</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vbox</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">modelo</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="s2">&quot;Nacionalidad&quot;</span><span class="p">,</span> <span class="s2">&quot;Biografía&quot;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CellRendererText</span><span class="p">(),</span> <span class="n">text</span><span class="o">=</span><span class="n">i</span><span class="p">))</span>
+
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ScrolledWindow</span><span class="p">()</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">hb</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonBox</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_add</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Añadir&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Editar&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Eliminar&quot;</span><span class="p">)</span>
+        <span class="n">btn_v</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Volver&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Configuración inicial de sensibilidad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">seleccion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span>
+        <span class="n">seleccion</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;changed&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_seleccion_cambiada</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_add</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="p">,</span> <span class="n">btn_v</span><span class="p">]:</span> <span class="n">hb</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_add</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_add_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_edit_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_delete_clicked</span><span class="p">)</span>
+        <span class="n">btn_v</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_volver_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VentanaAutores.actualizar_listado"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.actualizar_listado">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">actualizar_listado</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Consulta la base de datos y refresca el contenido del TreeView.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelo</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">consultaSenParametros</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM autores&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modelo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.on_add_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.on_add_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_add_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gestiona la lógica para añadir un nuevo autor.</span>
+
+<span class="sd">        Mantiene el diálogo abierto mediante un bucle hasta que la validación sea</span>
+<span class="sd">        correcta o el usuario cancele la operación.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">DialogoAutor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Nuevo Autor&quot;</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                <span class="n">datos</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get_datos</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">datos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">engadeRexistro</span><span class="p">(</span><span class="s2">&quot;INSERT INTO autores(nombre, nacionalidad, biografia) VALUES(?,?,?)&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">datos</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_listado</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_error</span><span class="p">(</span><span class="s2">&quot;El nombre del autor es obligatorio.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="n">d</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.on_edit_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.on_edit_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_edit_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gestiona la edición de un autor seleccionado.</span>
+
+<span class="sd">        Valida que los campos obligatorios no se dejen vacíos durante la edición.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span><span class="o">.</span><span class="n">get_selected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">it</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">DialogoAutor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Editar Autor&quot;</span><span class="p">,</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                    <span class="n">datos_nuevos</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get_datos</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">datos_nuevos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">actualizaRexistro</span><span class="p">(</span>
+                            <span class="s2">&quot;UPDATE autores SET nombre=?, nacionalidad=?, biografia=? WHERE id_autor=?&quot;</span><span class="p">,</span>
+                            <span class="o">*</span><span class="n">datos_nuevos</span><span class="p">,</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_listado</span><span class="p">()</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_error</span><span class="p">(</span><span class="s2">&quot;El nombre no puede quedar vacío al editar.&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.on_delete_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.on_delete_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_delete_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gestiona la eliminación de un autor tras confirmación del usuario.</span>
+
+<span class="sd">        Muestra un diálogo de advertencia informando sobre el borrado en cascada.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span><span class="o">.</span><span class="n">get_selected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">it</span><span class="p">:</span>
+            <span class="n">confirm</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">transient_for</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">message_type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">QUESTION</span><span class="p">,</span>
+                                        <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">YES_NO</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;¿Seguro que desea eliminar este autor?&quot;</span><span class="p">)</span>
+            <span class="n">confirm</span><span class="o">.</span><span class="n">format_secondary_text</span><span class="p">(</span><span class="s2">&quot;Se eliminarán también todos los libros asociados a este autor.&quot;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">confirm</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="n">confirm</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">YES</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">borraRexistro</span><span class="p">(</span><span class="s2">&quot;DELETE FROM autores WHERE id_autor=?&quot;</span><span class="p">,</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_listado</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.mostrar_error"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.mostrar_error">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">mostrar_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Muestra un diálogo de error con un mensaje personalizado.</span>
+
+<span class="sd">        :param mensaje: Texto que se mostrará en el cuerpo del error.</span>
+<span class="sd">        :type mensaje: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialogo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">transient_for</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">message_type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+                                    <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Error en los datos&quot;</span><span class="p">)</span>
+        <span class="n">dialogo</span><span class="o">.</span><span class="n">format_secondary_text</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+        <span class="n">dialogo</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">dialogo</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.on_delete_event"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.on_delete_event">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_delete_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Intervención del evento de cierre de ventana (botón X).</span>
+
+<span class="sd">        Impide la destrucción del objeto y vuelve al menú principal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_volver_clicked</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.on_volver_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.on_volver_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_volver_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Oculta la ventana actual y muestra la ventana principal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaAutores.on_seleccion_cambiada"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_autores.VentanaAutores.on_seleccion_cambiada">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_seleccion_cambiada</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seleccion</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Controlador de la señal &#39;changed&#39; de la selección del TreeView.</span>
+
+<span class="sd">        Habilita o deshabilita los botones Editar y Eliminar según la selección.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">modelo</span><span class="p">,</span> <span class="n">iterador</span> <span class="o">=</span> <span class="n">seleccion</span><span class="o">.</span><span class="n">get_selected</span><span class="p">()</span>
+        <span class="n">hay_seleccion</span> <span class="o">=</span> <span class="n">iterador</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="n">hay_seleccion</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="n">hay_seleccion</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2026, Jorge Durán Cruz.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

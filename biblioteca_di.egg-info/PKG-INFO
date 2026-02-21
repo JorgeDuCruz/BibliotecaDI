@@ -1,0 +1,6 @@
+Metadata-Version: 2.1
+Name: biblioteca-di
+Version: 1.0
+Summary: Sistema de gestión de biblioteca con GTK3
+Author: Tu Nombre
+Requires-Dist: PyGObject>=3.36.0

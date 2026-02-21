@@ -1,0 +1,2 @@
+include Codigo/*.db
+recursive-include Docs/build/html *

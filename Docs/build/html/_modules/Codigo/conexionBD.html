@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codigo.conexionBD &mdash; documentación de Biblioteca DI - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=8e0ebba5"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Biblioteca DI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Guía de Referencia Técnica:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Manual.html">Manual de Usuario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Codigo.html">Codigo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Biblioteca DI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">Codigo.conexionBD</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para Codigo.conexionBD</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dbapi</span>
+
+
+<div class="viewcode-block" id="ConexionBD"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD">[documentos]</a><span class="k">class</span><span class="w"> </span><span class="nc">ConexionBD</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase para gestionar la conexión y operaciones CRUD en una base de datos SQLite.</span>
+
+<span class="sd">    Esta clase está orientada a la gestión de una biblioteca, manejando las tablas</span>
+<span class="sd">    de libros y sus autores, asegurando la integridad referencial mediante claves foráneas.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rutaBd</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa las propiedades de la conexión.</span>
+
+<span class="sd">        :param rutaBd: Ruta física o nombre del archivo de la base de datos (ej: &#39;biblioteca.db&#39;).</span>
+<span class="sd">        :type rutaBd: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rutaBd</span> <span class="o">=</span> <span class="n">rutaBd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ConexionBD.conectaBD"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.conectaBD">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">conectaBD</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crea la conexión con la base de datos SQLite y habilita el soporte para claves foráneas.</span>
+
+<span class="sd">        Utiliza el comando PRAGMA para asegurar que las relaciones ON DELETE CASCADE</span>
+<span class="sd">        funcionen correctamente en el motor SQLite.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span> <span class="o">=</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rutaBd</span><span class="p">)</span>
+                <span class="c1"># Habilitamos explícitamente el soporte de claves foráneas en SQLite</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;PRAGMA foreign_keys = ON&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Conexión establecida con </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rutaBd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">StandardError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al conectar con la base de datos: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConexionBD.creaCursor"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.creaCursor">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">creaCursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crea el objeto cursor necesario para ejecutar sentencias SQL.</span>
+
+<span class="sd">        Requiere que la conexión haya sido establecida previamente mediante conectaBD().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cursor preparado.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al crear el cursor: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConexionBD.crearTablas"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.crearTablas">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">crearTablas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crea las tablas &#39;autores&#39; y &#39;libros&#39; estableciendo una relación 1:N.</span>
+
+<span class="sd">        Un autor puede tener muchos libros, pero un libro pertenece a un solo autor.</span>
+<span class="sd">        La tabla libros incluye restricciones de validación para la puntuación.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Tabla de Autores</span>
+        <span class="n">sql_autores</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        CREATE TABLE IF NOT EXISTS autores (</span>
+<span class="s2">            id_autor INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s2">            nombre TEXT NOT NULL,</span>
+<span class="s2">            nacionalidad TEXT,</span>
+<span class="s2">            biografia TEXT</span>
+<span class="s2">        )</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="c1"># Tabla de Libros (con Foreign Key)</span>
+        <span class="n">sql_libros</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        CREATE TABLE IF NOT EXISTS libros (</span>
+<span class="s2">            id_libro INTEGER PRIMARY KEY AUTOINCREMENT,</span>
+<span class="s2">            titulo TEXT NOT NULL,</span>
+<span class="s2">            id_autor INTEGER NOT NULL,</span>
+<span class="s2">            valoracion INTEGER CHECK(valoracion BETWEEN 1 AND 5),</span>
+<span class="s2">            leido INTEGER DEFAULT 0,</span>
+<span class="s2">            FOREIGN KEY (id_autor) REFERENCES autores (id_autor) ON DELETE CASCADE</span>
+<span class="s2">        )</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_autores</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_libros</span><span class="p">)</span>
+
+            <span class="c1"># --- Insertar autor por defecto ---</span>
+            <span class="c1"># Comprobamos si hay algún autor en la tabla</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM autores&quot;</span><span class="p">)</span>
+            <span class="n">cantidad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">cantidad</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">autor_defecto</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Autor Desconocido&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">,</span> <span class="s2">&quot;Autor creado por el sistema.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO autores (nombre, nacionalidad, biografia) VALUES (?, ?, ?)&quot;</span><span class="p">,</span>
+                                    <span class="n">autor_defecto</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Autor por defecto creado correctamente.&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tablas de Autores y Libros creadas correctamente.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al crear las tablas: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConexionBD.consultaSenParametros"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.consultaSenParametros">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">consultaSenParametros</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">consultaSQL</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ejecuta una consulta SQL de selección sin parámetros.</span>
+
+<span class="sd">        :param consultaSQL: Sentencia SQL (SELECT) a ejecutar.</span>
+<span class="sd">        :type consultaSQL: str</span>
+<span class="sd">        :return: Lista de tuplas con los registros resultantes.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">consultaSQL</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en consulta: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="ConexionBD.consultaConParametros"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.consultaConParametros">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">consultaConParametros</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">consultaSQL</span><span class="p">,</span> <span class="o">*</span><span class="n">parametros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ejecuta una consulta SQL de selección utilizando parámetros de seguridad.</span>
+
+<span class="sd">        :param consultaSQL: Sentencia SQL con marcadores de posición &#39;?&#39;.</span>
+<span class="sd">        :type consultaSQL: str</span>
+<span class="sd">        :param parametros: Valores para filtrar la consulta.</span>
+<span class="sd">        :return: Lista de tuplas con los resultados filtrados.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">consultaSQL</span><span class="p">,</span> <span class="n">parametros</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en consulta parametrizada: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="ConexionBD.engadeRexistro"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.engadeRexistro">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">engadeRexistro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">insertSQL</span><span class="p">,</span> <span class="o">*</span><span class="n">parametros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserta un nuevo registro (Libro o Autor) en la base de datos.</span>
+
+<span class="sd">        :param insertSQL: Sentencia INSERT con marcadores &#39;?&#39;.</span>
+<span class="sd">        :type insertSQL: str</span>
+<span class="sd">        :param parametros: Datos del registro a insertar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">insertSQL</span><span class="p">,</span> <span class="n">parametros</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inserción completada.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en la inserción: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConexionBD.actualizaRexistro"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.actualizaRexistro">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">actualizaRexistro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">updateSQL</span><span class="p">,</span> <span class="o">*</span><span class="n">parametros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Actualiza un registro existente mediante su ID.</span>
+
+<span class="sd">        :param updateSQL: Sentencia UPDATE con marcadores &#39;?&#39;.</span>
+<span class="sd">        :type updateSQL: str</span>
+<span class="sd">        :param parametros: Nuevos valores incluyendo el ID al final para la cláusula WHERE.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">updateSQL</span><span class="p">,</span> <span class="n">parametros</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Actualización completada.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en la actualización: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConexionBD.borraRexistro"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.borraRexistro">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">borraRexistro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">borraSQL</span><span class="p">,</span> <span class="o">*</span><span class="n">parametros</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Elimina un registro de la base de datos.</span>
+
+<span class="sd">        Si se borra un autor, se borrarán sus libros en cascada automáticamente</span>
+<span class="sd">        gracias a la configuración de la clave foránea.</span>
+
+<span class="sd">        :param borraSQL: Sentencia DELETE con marcador para el ID.</span>
+<span class="sd">        :type borraSQL: str</span>
+<span class="sd">        :param parametros: ID del registro a eliminar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">borraSQL</span><span class="p">,</span> <span class="n">parametros</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Registro eliminado.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al borrar registro: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConexionBD.pechaBD"><a class="viewcode-back" href="../../Codigo.html#Codigo.conexionBD.ConexionBD.pechaBD">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">pechaBD</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Realiza el cierre seguro del cursor y de la conexión con la base de datos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conexion</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Base de datos cerrada.&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2026, Jorge Durán Cruz.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

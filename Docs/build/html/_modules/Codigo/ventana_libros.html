@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codigo.ventana_libros &mdash; documentación de Biblioteca DI - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=8e0ebba5"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Biblioteca DI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Guía de Referencia Técnica:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Manual.html">Manual de Usuario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Codigo.html">Codigo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Biblioteca DI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">Codigo.ventana_libros</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para Codigo.ventana_libros</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gi</span>
+
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gi.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gtk</span>
+
+
+<div class="viewcode-block" id="DialogoLibro"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.DialogoLibro">[documentos]</a><span class="k">class</span><span class="w"> </span><span class="nc">DialogoLibro</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Dialog</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ventana modal para la entrada de datos de libros.</span>
+
+<span class="sd">    Proporciona una interfaz para capturar el título, el autor (vía ComboBox),</span>
+<span class="sd">    la valoración (vía Gtk.Scale) y el estado de lectura del libro.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">titulo</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">datos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa el diálogo de libros.</span>
+
+<span class="sd">        :param parent: Ventana padre que lanza el diálogo.</span>
+<span class="sd">        :type parent: Gtk.Window</span>
+<span class="sd">        :param titulo: Título que se mostrará en la barra de la ventana.</span>
+<span class="sd">        :type titulo: str</span>
+<span class="sd">        :param db: Instancia de la conexión a la base de datos para cargar autores.</span>
+<span class="sd">        :type db: ConexionBD</span>
+<span class="sd">        :param datos: Lista opcional con datos existentes para el modo edición.</span>
+<span class="sd">        :type datos: list, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">titulo</span><span class="p">,</span> <span class="n">transient_for</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_buttons</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_CANCEL</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">CANCEL</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_OK</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">350</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">db</span>
+
+        <span class="n">box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_content_area</span><span class="p">()</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">set_spacing</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># --- Entradas de datos ---</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">et</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">placeholder_text</span><span class="o">=</span><span class="s2">&quot;Título del libro&quot;</span><span class="p">)</span>
+
+        <span class="c1"># ComboBox para Autores: Almacena ID (oculto) y Nombre (visible)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ma</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ComboBox</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ma</span><span class="p">)</span>
+        <span class="n">ren</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CellRendererText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">ren</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="n">ren</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Carga dinámica de autores desde la base de datos</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">consultaSenParametros</span><span class="p">(</span><span class="s2">&quot;SELECT id_autor, nombre FROM autores&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+        <span class="c1"># --- Gtk.Scale (Slider) para valoración ---</span>
+        <span class="n">adj</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Adjustment</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step_increment</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">page_increment</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">,</span> <span class="n">adjustment</span><span class="o">=</span><span class="n">adj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span><span class="o">.</span><span class="n">set_digits</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span><span class="o">.</span><span class="n">set_value_pos</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">PositionType</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span><span class="o">.</span><span class="n">set_hexpand</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ch</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CheckButton</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;¿Marcar como leído?&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Layout con Grid para organizar etiquetas y widgets</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">row_spacing</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">column_spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Título:&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">et</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Autor:&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cb</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Puntuación:&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ch</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">box</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+
+        <span class="c1"># Carga de datos preexistentes en caso de edición</span>
+        <span class="k">if</span> <span class="n">datos</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">et</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">datos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">datos</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="c1"># Se convierte la cadena de texto de la vista a Booleano para el CheckButton</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ch</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">datos</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Leído&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fila</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ma</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">fila</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">datos</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cb</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DialogoLibro.get_datos"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.DialogoLibro.get_datos">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_datos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extrae y procesa los datos de los widgets del diálogo.</span>
+
+<span class="sd">        :return: Tupla con (título, id_autor, valoración, estado_leído).</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb</span><span class="o">.</span><span class="n">get_active_iter</span><span class="p">()</span>
+        <span class="n">ida</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">it</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">et</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+            <span class="n">ida</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slider_nota</span><span class="o">.</span><span class="n">get_value</span><span class="p">()),</span>
+            <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ch</span><span class="o">.</span><span class="n">get_active</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="VentanaLibros"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros">[documentos]</a><span class="k">class</span><span class="w"> </span><span class="nc">VentanaLibros</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ventana principal para la gestión y visualización del catálogo de libros.</span>
+
+<span class="sd">    Incluye un listado interactivo y herramientas para la manipulación de registros</span>
+<span class="sd">    con validación de datos en tiempo real.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">main_win</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa la ventana de gestión de libros.</span>
+
+<span class="sd">        :param db: Instancia de la clase ConexionBD.</span>
+<span class="sd">        :type db: ConexionBD</span>
+<span class="sd">        :param main_win: Referencia a la ventana de inicio para permitir el retorno.</span>
+<span class="sd">        :type main_win: VentanaSeleccion</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Gestión de Libros&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_win</span> <span class="o">=</span> <span class="n">db</span><span class="p">,</span> <span class="n">main_win</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span class="p">(</span><span class="mi">700</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;delete-event&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_delete_event</span><span class="p">)</span>
+
+        <span class="n">vbox</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vbox</span><span class="p">)</span>
+
+        <span class="c1"># --- Barra de herramientas superior para el filtro ---</span>
+        <span class="n">hbox_filtro</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">hbox_filtro</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">hbox_filtro</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Filtrar por estado:&quot;</span><span class="p">))</span>
+
+        <span class="c1"># ComboBox de filtro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ComboBoxText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="o">.</span><span class="n">append_text</span><span class="p">(</span><span class="s2">&quot;Todos&quot;</span><span class="p">)</span>  <span class="c1"># Índice 0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="o">.</span><span class="n">append_text</span><span class="p">(</span><span class="s2">&quot;Leído&quot;</span><span class="p">)</span>  <span class="c1"># Índice 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="o">.</span><span class="n">append_text</span><span class="p">(</span><span class="s2">&quot;Pendiente&quot;</span><span class="p">)</span>  <span class="c1"># Índice 2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;changed&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_filtro_changed</span><span class="p">)</span>
+        <span class="n">hbox_filtro</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># --- MODELO Y FILTRO ---</span>
+        <span class="c1"># 1. El modelo real con los datos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelo_real</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># 2. El filtro que envuelve al modelo real</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelo_real</span><span class="o">.</span><span class="n">filter_new</span><span class="p">()</span>
+        <span class="c1"># Definimos la función que decide qué filas se ven</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtro</span><span class="o">.</span><span class="n">set_visible_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filtro_func</span><span class="p">)</span>
+
+        <span class="c1"># 3. El TreeView usa el filtro</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filtro</span><span class="p">)</span>
+
+        <span class="n">columnas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Título&quot;</span><span class="p">,</span> <span class="s2">&quot;Autor&quot;</span><span class="p">,</span> <span class="s2">&quot;Nota&quot;</span><span class="p">,</span> <span class="s2">&quot;Estado&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columnas</span><span class="p">):</span>
+            <span class="n">ren</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CellRendererText</span><span class="p">()</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">ren</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ScrolledWindow</span><span class="p">()</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1">#--- Botones ---</span>
+        <span class="n">hb</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonBox</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">layout_style</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonBoxStyle</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_add</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Añadir Libro&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Editar Seleccionado&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Eliminar&quot;</span><span class="p">)</span>
+        <span class="n">btn_v</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Volver al Menú&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Control de sensibilidad de botones</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">seleccion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span>
+        <span class="n">seleccion</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;changed&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_seleccion_cambiada</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_add</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="p">,</span> <span class="n">btn_v</span><span class="p">]:</span> <span class="n">hb</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_add</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_add_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_edit_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_delete_clicked</span><span class="p">)</span>
+        <span class="n">btn_v</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_volver_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VentanaLibros.filtro_func"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.filtro_func">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">filtro_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="nb">iter</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determina si una fila debe ser visible basada en el ComboBox.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">estado_filtro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_filtro</span><span class="o">.</span><span class="n">get_active_text</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">estado_filtro</span> <span class="o">==</span> <span class="s2">&quot;Todos&quot;</span> <span class="ow">or</span> <span class="n">estado_filtro</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="c1"># Obtenemos el valor de la columna &quot;Leído&quot; (índice 4)</span>
+        <span class="n">valor_fila</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="nb">iter</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">valor_fila</span> <span class="o">==</span> <span class="n">estado_filtro</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_filtro_changed"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_filtro_changed">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_filtro_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">combo</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Refresca la vista del filtro cuando cambia el ComboBox.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtro</span><span class="o">.</span><span class="n">refilter</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.actualizar_listado"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.actualizar_listado">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">actualizar_listado</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sincroniza el modelo real con la DB (ahora usamos modelo_real).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelo_real</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT l.id_libro, l.titulo, a.nombre, l.valoracion, l.leido, l.id_autor</span>
+<span class="s2">                 FROM libros l </span><span class="se">\</span>
+<span class="s2">                          JOIN autores a ON l.id_autor = a.id_autor&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">consultaSenParametros</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
+            <span class="n">fila_procesada</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">fila_procesada</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Leído&quot;</span> <span class="k">if</span> <span class="n">fila_procesada</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;Pendiente&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modelo_real</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fila_procesada</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_add_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_add_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_add_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Maneja la creación de un nuevo libro con validación de campos obligatorios.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">DialogoLibro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Añadir Nuevo Libro&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                <span class="n">titulo</span><span class="p">,</span> <span class="n">id_autor</span><span class="p">,</span> <span class="n">nota</span><span class="p">,</span> <span class="n">leido</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get_datos</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">titulo</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_error</span><span class="p">(</span><span class="s2">&quot;El título del libro no puede estar vacío.&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">id_autor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_error</span><span class="p">(</span><span class="s2">&quot;Debes seleccionar un autor de la lista.&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">engadeRexistro</span><span class="p">(</span><span class="s2">&quot;INSERT INTO libros(titulo, id_autor, valoracion, leido) VALUES(?,?,?,?)&quot;</span><span class="p">,</span>
+                                           <span class="n">titulo</span><span class="p">,</span> <span class="n">id_autor</span><span class="p">,</span> <span class="n">nota</span><span class="p">,</span> <span class="n">leido</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_listado</span><span class="p">()</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_edit_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_edit_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_edit_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Maneja la edición de un libro existente, manteniendo el diálogo abierto ante errores.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span><span class="o">.</span><span class="n">get_selected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">it</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">DialogoLibro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Editar Libro&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">])</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                    <span class="n">titulo</span><span class="p">,</span> <span class="n">id_autor</span><span class="p">,</span> <span class="n">nota</span><span class="p">,</span> <span class="n">leido</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get_datos</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">titulo</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_error</span><span class="p">(</span><span class="s2">&quot;El título no puede quedar vacío.&quot;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">id_autor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_error</span><span class="p">(</span><span class="s2">&quot;Debe haber un autor seleccionado.&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">actualizaRexistro</span><span class="p">(</span>
+                            <span class="s2">&quot;UPDATE libros SET titulo=?, id_autor=?, valoracion=?, leido=? WHERE id_libro=?&quot;</span><span class="p">,</span>
+                            <span class="n">titulo</span><span class="p">,</span> <span class="n">id_autor</span><span class="p">,</span> <span class="n">nota</span><span class="p">,</span> <span class="n">leido</span><span class="p">,</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_listado</span><span class="p">()</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_delete_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_delete_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_delete_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Maneja el borrado de un libro tras confirmación.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span><span class="o">.</span><span class="n">get_selected</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">it</span><span class="p">:</span>
+            <span class="n">confirm</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">transient_for</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">message_type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">QUESTION</span><span class="p">,</span>
+                                        <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">YES_NO</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;¿Eliminar libro?&quot;</span><span class="p">)</span>
+            <span class="n">confirm</span><span class="o">.</span><span class="n">format_secondary_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Se borrará &#39;</span><span class="si">{</span><span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; de la base de datos.&quot;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">confirm</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="n">confirm</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">YES</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">borraRexistro</span><span class="p">(</span><span class="s2">&quot;DELETE FROM libros WHERE id_libro=?&quot;</span><span class="p">,</span> <span class="n">mod</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_listado</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.mostrar_error"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.mostrar_error">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">mostrar_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mensaje</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lanza un cuadro de diálogo de advertencia.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialogo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">transient_for</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">message_type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                                    <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Atención&quot;</span><span class="p">)</span>
+        <span class="n">dialogo</span><span class="o">.</span><span class="n">format_secondary_text</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+        <span class="n">dialogo</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="n">dialogo</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_delete_event"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_delete_event">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_delete_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gestiona el evento de cierre de la ventana.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_volver_clicked</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_volver_clicked"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_volver_clicked">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_volver_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Oculta la ventana de libros y regresa al menú principal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="VentanaLibros.on_seleccion_cambiada"><a class="viewcode-back" href="../../Codigo.html#Codigo.ventana_libros.VentanaLibros.on_seleccion_cambiada">[documentos]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_seleccion_cambiada</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seleccion</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Actualiza la sensibilidad de los botones según la selección actual del TreeView.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">modelo</span><span class="p">,</span> <span class="n">iterador</span> <span class="o">=</span> <span class="n">seleccion</span><span class="o">.</span><span class="n">get_selected</span><span class="p">()</span>
+        <span class="n">hay_seleccion</span> <span class="o">=</span> <span class="n">iterador</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="n">hay_seleccion</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_del</span><span class="o">.</span><span class="n">set_sensitive</span><span class="p">(</span><span class="n">hay_seleccion</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2026, Jorge Durán Cruz.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
