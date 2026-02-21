@@ -9,14 +9,6 @@ Bienvenido al manual de **Biblioteca DI**. Esta guía te ayudará a dar tus prim
 Instalación y Arranque
 ----------------------
 
-Una vez descargado el archivo en .tar.gz instalaló con pip:
-
-.. code-block:: bash
-
-   pip install biblioteca_di-1.0.tar.gz
-
-
-
 Una vez instalado el paquete, puedes iniciar la aplicación desde cualquier terminal escribiendo:
 
 .. code-block:: bash
