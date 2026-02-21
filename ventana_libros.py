@@ -123,11 +123,34 @@ class VentanaLibros(Gtk.Window):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, border_width=10)
         self.add(vbox)
 
-        # Definición del modelo: ID, Título, Autor, Nota, Estado(Texto), ID_Autor(Oculto)
-        self.modelo = Gtk.ListStore(int, str, str, int, str, int)
-        self.tree = Gtk.TreeView(model=self.modelo)
+        # --- Barra de herramientas superior para el filtro ---
+        hbox_filtro = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        vbox.pack_start(hbox_filtro, False, False, 0)
 
-        columnas = ["ID", "Título", "Autor", "Nota", "Leído"]
+        hbox_filtro.add(Gtk.Label(label="Filtrar por estado:"))
+
+        # ComboBox de filtro
+        self.cb_filtro = Gtk.ComboBoxText()
+        self.cb_filtro.append_text("Todos")  # Índice 0
+        self.cb_filtro.append_text("Leído")  # Índice 1
+        self.cb_filtro.append_text("Pendiente")  # Índice 2
+        self.cb_filtro.set_active(0)
+        self.cb_filtro.connect("changed", self.on_filtro_changed)
+        hbox_filtro.pack_start(self.cb_filtro, False, False, 0)
+
+        # --- MODELO Y FILTRO ---
+        # 1. El modelo real con los datos
+        self.modelo_real = Gtk.ListStore(int, str, str, int, str, int)
+
+        # 2. El filtro que envuelve al modelo real
+        self.filtro = self.modelo_real.filter_new()
+        # Definimos la función que decide qué filas se ven
+        self.filtro.set_visible_func(self.filtro_func)
+
+        # 3. El TreeView usa el filtro
+        self.tree = Gtk.TreeView(model=self.filtro)
+
+        columnas = ["ID", "Título", "Autor", "Nota", "Estado"]
         for i, c in enumerate(columnas):
             ren = Gtk.CellRendererText()
             col = Gtk.TreeViewColumn(c, ren, text=i)
@@ -137,6 +160,7 @@ class VentanaLibros(Gtk.Window):
         sc.add(self.tree)
         vbox.pack_start(sc, True, True, 0)
 
+        #--- Botones ---
         hb = Gtk.ButtonBox(spacing=10, layout_style=Gtk.ButtonBoxStyle.CENTER)
         self.btn_add = Gtk.Button(label="Añadir Libro")
         self.btn_edit = Gtk.Button(label="Editar Seleccionado")
@@ -160,21 +184,34 @@ class VentanaLibros(Gtk.Window):
         self.show_all()
         self.hide()
 
-    def actualizar_listado(self):
+    def filtro_func(self, model, iter, data):
         """
-        Sincroniza el TreeView con la base de datos.
+        Determina si una fila debe ser visible basada en el ComboBox.
+        """
+        estado_filtro = self.cb_filtro.get_active_text()
 
-        Transforma los valores numéricos del campo 'leido' (0/1) en
-        cadenas legibles ('Pendiente'/'Leído') para la interfaz.
-        """
-        self.modelo.clear()
+        if estado_filtro == "Todos" or estado_filtro is None:
+            return True
+
+        # Obtenemos el valor de la columna "Leído" (índice 4)
+        valor_fila = model[iter][4]
+        return valor_fila == estado_filtro
+
+    def on_filtro_changed(self, combo):
+        """Refresca la vista del filtro cuando cambia el ComboBox."""
+        self.filtro.refilter()
+
+    def actualizar_listado(self):
+        """Sincroniza el modelo real con la DB (ahora usamos modelo_real)."""
+        self.modelo_real.clear()
         sql = """SELECT l.id_libro, l.titulo, a.nombre, l.valoracion, l.leido, l.id_autor
-                 FROM libros l JOIN autores a ON l.id_autor = a.id_autor"""
+                 FROM libros l \
+                          JOIN autores a ON l.id_autor = a.id_autor"""
 
         for f in self.db.consultaSenParametros(sql):
             fila_procesada = list(f)
             fila_procesada[4] = "Leído" if fila_procesada[4] == 1 else "Pendiente"
-            self.modelo.append(fila_procesada)
+            self.modelo_real.append(fila_procesada)
 
     def on_add_clicked(self, w):
         """

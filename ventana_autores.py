@@ -36,7 +36,7 @@ class DialogoAutor(Gtk.Dialog):
         self.tv.get_buffer().set_text(bio)
 
         for w in [Gtk.Label(label="Nombre:"), self.en, Gtk.Label(label="Nacionalidad:"), self.ena,
-                  Gtk.Label(label="Bio:"), self.tv]:
+                  Gtk.Label(label="Biografía:"), self.tv]:
             box.pack_start(w, True, True, 0)
         self.show_all()
 
@@ -78,7 +78,7 @@ class VentanaAutores(Gtk.Window):
 
         self.modelo = Gtk.ListStore(int, str, str, str)
         self.tree = Gtk.TreeView(model=self.modelo)
-        for i, c in enumerate(["ID", "Nombre", "Nacionalidad", "Bio"]):
+        for i, c in enumerate(["ID", "Nombre", "Nacionalidad", "Biografía"]):
             self.tree.append_column(Gtk.TreeViewColumn(c, Gtk.CellRendererText(), text=i))
 
         sc = Gtk.ScrolledWindow()

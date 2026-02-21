@@ -79,6 +79,18 @@ class ConexionBD:
         try:
             self.cursor.execute(sql_autores)
             self.cursor.execute(sql_libros)
+
+            # --- Insertar autor por defecto ---
+            # Comprobamos si hay algún autor en la tabla
+            self.cursor.execute("SELECT COUNT(*) FROM autores")
+            cantidad = self.cursor.fetchone()[0]
+
+            if cantidad == 0:
+                autor_defecto = ("Autor Desconocido", "N/A", "Autor creado por el sistema.")
+                self.cursor.execute("INSERT INTO autores (nombre, nacionalidad, biografia) VALUES (?, ?, ?)",
+                                    autor_defecto)
+                print("Autor por defecto creado correctamente.")
+
             self.conexion.commit()
             print("Tablas de Autores y Libros creadas correctamente.")
         except dbapi.DatabaseError as e:

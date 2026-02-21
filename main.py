@@ -1,8 +1,9 @@
+import os
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-from conexionBD import ConexionBD
-from ventana_seleccion import VentanaSeleccion
+from Codigo.conexionBD import ConexionBD
+from Codigo.ventana_seleccion import VentanaSeleccion
 
 class AplicacionBiblioteca:
     """
@@ -21,8 +22,12 @@ class AplicacionBiblioteca:
         instancia el cursor necesario para las operaciones y muestra la
         ventana principal de selección de gestión.
         """
+        # Obtener la ruta absoluta de la carpeta donde está este archivo main.py
+        ruta_directorio = os.path.dirname(os.path.abspath(__file__))
+        ruta_db = os.path.join(ruta_directorio, "biblioteca.db")
+
         # 1. Configurar conexión a la base de datos
-        self.db = ConexionBD("biblioteca.db")
+        self.db = ConexionBD(ruta_db)
         self.db.conectaBD()
         self.db.creaCursor()
         self.db.crearTablas()
@@ -40,6 +45,10 @@ class AplicacionBiblioteca:
         """
         Gtk.main()
 
-if __name__ == "__main__":
+def main():
+    """Punto de entrada para el comando de terminal."""
     app = AplicacionBiblioteca()
     app.ejecutar()
+
+if __name__ == "__main__":
+    main()
