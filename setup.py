@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="biblioteca-di-JorgeDC",
-    version="1.0",
+    version="1.0.1",
     packages=find_packages(),
     install_requires=[
         "PyGObject>=3.36.0",
@@ -14,6 +14,7 @@ setup(
             'biblioteca-di=Codigo.main:main',
         ],
     },
-    author="Tu Nombre",
+    author="Jorge Durán Cruz",
+    author_email="jdurancruz@danielcastelao.org",
     description="Sistema de gestión de biblioteca con GTK3",
 )

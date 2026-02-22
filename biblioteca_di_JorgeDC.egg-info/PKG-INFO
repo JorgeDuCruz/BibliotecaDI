@@ -1,6 +1,11 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: biblioteca-di-JorgeDC
-Version: 1.0
+Version: 1.0.1
 Summary: Sistema de gestión de biblioteca con GTK3
-Author: Tu Nombre
+Author: Jorge Durán Cruz
+Author-email: jdurancruz@danielcastelao.org
 Requires-Dist: PyGObject>=3.36.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: summary
